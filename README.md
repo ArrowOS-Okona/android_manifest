@@ -2,21 +2,33 @@
 
 # ArrowOS
 
- Getting Started
+Getting Started
 ---------------
+
+Create the directories
+----------------------
+
+As a first step, you'll have to create and enter a folder with the appropriate name.
+To do that, run these commands:
+
+```bash
+   mkdir arrow
+   cd arrow
+```
+
 To get started with the ArrowOS sources, you'll need to get
 familiar with [Git and Repo](https://source.android.com/setup/build/downloading).
 
 To initialize your local repository, use command:
 
 ```bash
-repo init -u https://github.com/ArrowOS/android_manifest.git -b arrow-13.1
+repo init -u https://github.com/ArrowOS-Okona/android_manifest.git -b arrow-13.1
 ```
 
 Then sync up:
 
 ```bash
-repo sync
+repo sync -c --force-sync --optimized-fetch --no-tags --no-clone-bundle --prune --current-branch -j$(nproc --all)
 ```
 
 Building the System
@@ -30,19 +42,21 @@ Building the System
 Lunch your device after cloning all device sources if needed.
 
 ```bash
-lunch arrow_devicecodename-buildtype
+lunch arrow_opkona-user (recommanded if you want do a simple build)
+lunch arrow_opkona-userdebug (recommanded if you want do like some little modding after flashing the build, adb will be enable by default with extra logging stuff)
+lunch arrow_opkona-eng (recommanded if you have modify anything on the source, really usefull for getting logs in case the rom not boot. /!\ Don't use this buildtype, if you don't need it these debugging stuff mostly ruined performance and user experience)
 ```
 
 Start compilation
 
 ```bash
-m otapackage
+m otapackage -j$(nproc --all)
 ```
 
 OR
 
 ```bash
-m bacon
+m bacon -j$(nproc --all)
 ```
 
 **You can also refer to our detailed guides as listed below:**
